@@ -1,0 +1,16 @@
+package chat.api.model;
+
+public class GetMensagem {
+	private String mensagem;
+	
+	public GetMensagem() {
+		
+	}
+	
+	public GetMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+	
+	
+	
+}

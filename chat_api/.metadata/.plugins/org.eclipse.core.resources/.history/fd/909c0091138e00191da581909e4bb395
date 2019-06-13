@@ -1,0 +1,5 @@
+package chat.api.resource;
+
+public class GreetingController {
+
+}
