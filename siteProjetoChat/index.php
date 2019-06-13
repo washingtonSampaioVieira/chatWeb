@@ -15,7 +15,7 @@
                     <input type="submit" id="btn_enviar" name="btn_enviar" >
                 </div>
                 <div id="mensagem">
-                    <div class="caixa_mensagem_enviada">
+                    <!-- <div class="caixa_mensagem_enviada">
                         <div class="mensagem_enviada">
                             <p>TESTE TESTE TESTE TESTE TESTE TESTE TESTE teste teste teste teste</p>
                         </div>
@@ -24,9 +24,11 @@
                         <div class="mensagem_recebida">
                             <p>Oi tudo bom?     sdajnasdsdihdsiuhasiuhsdiuahusaihiushisd </p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
+        <script src="js/jquery-1.11.3.min.js"></script>
+        <script src="js/index.js"></script>
     </body>
 </html>
