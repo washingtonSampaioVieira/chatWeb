@@ -1,0 +1,5 @@
+package chat.api.repository;
+
+public interface MensagemRepository {
+
+}
