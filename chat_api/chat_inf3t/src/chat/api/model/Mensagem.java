@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +18,10 @@ public class Mensagem {
 	private Long codMensagem;
 
 	private String mensagem;
+
+	@ManyToOne
+	@JoinColumn(name = "cod_usuario")
+	private Usuario usuario;
 
 	public Long getCodMensagem() {
 		return codMensagem;
@@ -33,9 +39,19 @@ public class Mensagem {
 		this.mensagem = mensagem;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
-		return "Mensagem [codMensagem=" + codMensagem + ", mensagem=" + mensagem + "]";
+		return "Mensagem [codMensagem=" + codMensagem + ", mensagem=" + mensagem + ", usuario=" + usuario + "]";
 	}
+
+	
 
 }

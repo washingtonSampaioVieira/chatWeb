@@ -1,0 +1,10 @@
+package chat.api.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import chat.api.model.Usuario;
+
+public interface UsuarioRepository 
+	extends JpaRepository<Usuario, Long> {
+	
+}

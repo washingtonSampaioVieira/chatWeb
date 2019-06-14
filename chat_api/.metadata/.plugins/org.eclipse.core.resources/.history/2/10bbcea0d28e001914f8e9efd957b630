@@ -1,0 +1,18 @@
+package chat.api.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import chat.api.model.Usuario;
+
+public interface UsuarioRepository 
+	extends JpaRepository<Usuario, Long> {
+	
+	@Query("select usuario from Usuario usuario where usuario.nome = ?1 "
+			+ "and usuario.senha = ?2")
+	Usuario login (String nome, String senha);
+	
+	
+	
+	
+}
