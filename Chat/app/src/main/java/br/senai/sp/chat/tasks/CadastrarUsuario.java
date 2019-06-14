@@ -12,29 +12,27 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
 
-import br.senai.sp.chat.Model.Mensagem;
+import br.senai.sp.chat.Model.Usuario;
 
-public class GravarMensagens extends AsyncTask{
+public class CadastrarUsuario extends AsyncTask{
 
-    private Mensagem mensagem;
+    private Usuario usuario;
 
-    public GravarMensagens(Mensagem mensagem) {
-        this.mensagem = mensagem;
+    public CadastrarUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        JSONStringer jsMensagem = new JSONStringer();
+        JSONStringer jsUsuario = new JSONStringer();
 
         try {
+            jsUsuario.object();
+            jsUsuario.key("nome").value(usuario.getNome());
+            jsUsuario.key("senha").value(usuario.getSenha());
+            jsUsuario.endObject();
 
-
-            jsMensagem.object();
-            jsMensagem.key("mensagem").value(mensagem.getMensagem());
-            jsMensagem.key("usuario").object().key("codUsuario").value(mensagem.getCodUsuario()).endObject();
-            jsMensagem.endObject();
-
-            URL url = new URL("http://10.107.144.36:8080/chat");
+            URL url = new URL("http://10.107.144.36:8080/chat/usuarios");
 
             HttpURLConnection conexao = (HttpURLConnection) url.openConnection();
 
@@ -45,7 +43,7 @@ public class GravarMensagens extends AsyncTask{
             conexao.setDoInput(true);
 
             PrintStream outputStream = new PrintStream(conexao.getOutputStream());
-            outputStream.print(jsMensagem);
+            outputStream.print(jsUsuario);
 
             conexao.connect();
 

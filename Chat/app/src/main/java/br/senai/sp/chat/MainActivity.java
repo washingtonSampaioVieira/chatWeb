@@ -1,51 +1,72 @@
 package br.senai.sp.chat;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
-import br.senai.sp.chat.Model.Mensagem;
-import br.senai.sp.chat.tasks.CarregarMensagens;
-import br.senai.sp.chat.tasks.GravarMensagens;
+import java.util.concurrent.ExecutionException;
+
+import br.senai.sp.chat.Model.Usuario;
+import br.senai.sp.chat.tasks.LogarUsuario;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static ListView listMensagens;
-    private EditText txtMensagem;
-    private Button btnEnviar;
-    private Mensagem mensagem;
+    private EditText txtNome;
+    private EditText txtSenha;
+    private Button btnLogin;
+    private Button btnCadastrar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // instanciando os elementos xml
-        listMensagens = findViewById(R.id.list_chat);
-        txtMensagem = findViewById(R.id.txt_mensagem);
-        btnEnviar = findViewById(R.id.btn_enviar);
+        //instanciando os objetos
+        txtNome = findViewById(R.id.txt_nome);
+        txtSenha = findViewById(R.id.txt_senha);
+        btnLogin = findViewById(R.id.btn_login);
+        btnCadastrar = findViewById(R.id.btn_novo_cadastro);
 
-        btnEnviar.setOnClickListener(new View.OnClickListener() {
+        //logar no chat
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mensagem = new Mensagem();
-                mensagem.setMensagem(txtMensagem.getText().toString());
-                GravarMensagens gravar = new GravarMensagens(mensagem);
-                gravar.execute();
-                onResume();
+                Usuario usuario = new Usuario();
+                usuario.setNome(txtNome.getText().toString());
+                usuario.setSenha(txtSenha.getText().toString());
+                LogarUsuario logar = new LogarUsuario(usuario);
+                logar.execute();
+
+                try {
+                    Usuario usuarioRetorno = (Usuario) logar.get();
+
+
+                    if(usuarioRetorno.getCodUsuario() != 0){
+                        Intent intentChat = new Intent(MainActivity.this, ChatActivity.class);
+                        intentChat.putExtra("usuario", usuarioRetorno);
+                        startActivity(intentChat);
+                    }
+
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        CarregarMensagens carregar = new CarregarMensagens(this);
-        carregar.execute();
-        txtMensagem.setText("")
-        ;
+        //cadastrar
+        btnCadastrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentCadastrar = new Intent(MainActivity.this, CadastroActivity.class);
+                startActivity(intentCadastrar);
+            }
+        });
+
     }
 }

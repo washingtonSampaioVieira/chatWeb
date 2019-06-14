@@ -4,6 +4,7 @@ public class Mensagem {
 
     private int codMensagem;
     private String mensagem;
+    private int codUsuario;
 
     public int getCodMensagem() {
         return codMensagem;
@@ -19,6 +20,14 @@ public class Mensagem {
 
     public void setMensagem(String mensagem) {
         this.mensagem = mensagem;
+    }
+
+    public int getCodUsuario() {
+        return codUsuario;
+    }
+
+    public void setCodUsuario(int codUsuario) {
+        this.codUsuario = codUsuario;
     }
 
     @Override
