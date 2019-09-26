@@ -1,5 +1,0 @@
-package chat.api.resource;
-
-public class MensagemResource {
-
-}
