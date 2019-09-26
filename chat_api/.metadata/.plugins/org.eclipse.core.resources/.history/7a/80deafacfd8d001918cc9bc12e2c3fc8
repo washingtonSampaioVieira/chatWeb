@@ -1,5 +1,0 @@
-package chat.api.model;
-
-public class Mensagem {
-
-}
